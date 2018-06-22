@@ -22,3 +22,5 @@ src/**/*.css
 tags
 # for vscode js plugin
 jsconfig.json
+
+/dist
