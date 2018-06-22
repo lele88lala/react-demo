@@ -4,10 +4,26 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 module.exports = {
   entry: './src/index.js',
   devtool: 'inline-source-map',
-  devServer:{
+  devServer: {
     contentBase: './dist'
   },
-    plugins: [
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: [{
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env']
+          }
+        }, {
+          loader: 'eslint-loader',
+        }]
+      }
+    ]
+  },
+  plugins: [
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
       title: 'Development'
@@ -18,4 +34,3 @@ module.exports = {
     path: path.resolve(__dirname, 'dist')
   }
 };
-
