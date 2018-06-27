@@ -2,11 +2,27 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const devMode = process.env.NODE_ENV !== 'production';
 module.exports = {
   entry: './src/index.js',
   devtool: 'inline-source-map',
   devServer: {
     contentBase: './dist'
+  },
+  optimization: {
+    minimizer: [
+      new UglifyJsPlugin({
+        cache: true,
+        parallel: true,
+        sourceMap: true // set to true if you want JS source maps
+      }),
+      // There is a bug and cannot use sourceMap Details:
+      // https://github.com/NMFR/optimize-css-assets-webpack-plugin/issues/53
+      // https://github.com/webpack-contrib/mini-css-extract-plugin/issues/141
+      new OptimizeCSSAssetsPlugin({})
+    ]
   },
   module: {
     rules: [
@@ -25,9 +41,10 @@ module.exports = {
         {
         test: /\.scss$/,
         use: [
-            MiniCssExtractPlugin.loader,
+            devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
           { loader: "css-loader", options: { sourceMap: true } },
           { loader: "sass-loader", options: { sourceMap: true } },
+          { loader: "postcss-loader", options: { sourceMap: 'inline' } },
         ]
       }
     ]
@@ -40,8 +57,10 @@ module.exports = {
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
-      filename: "[name].css",
-      chunkFilename: "[id].css"
+      // filename: "[name].css",
+      // chunkFilename: "[id].css"
+      filename: devMode ? '[name].css' : '[name].[hash].css',
+      chunkFilename: devMode ? '[id].css' : '[id].[hash].css',
     })
   ],
   output: {
