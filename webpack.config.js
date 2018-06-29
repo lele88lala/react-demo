@@ -54,6 +54,10 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: 'Development'
     }),
+    new HtmlWebpackPlugin({
+      filename: 'test.html',
+      template: 'src/assets/test.html'
+    }),
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
