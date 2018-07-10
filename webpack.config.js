@@ -32,7 +32,7 @@ module.exports = {
         use: [{
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env']
+            presets: ['@babel/preset-env', '@babel/react'],
           }
         }, {
           loader: 'eslint-loader',
@@ -52,11 +52,12 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
-      title: 'Development'
+      filename: 'index.html',
+      template: 'src/assets/index.html',
     }),
     new HtmlWebpackPlugin({
       filename: 'test.html',
-      template: 'src/assets/test.html'
+      template: 'src/assets/test.html',
     }),
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
