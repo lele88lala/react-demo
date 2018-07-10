@@ -16,10 +16,21 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import HelloReact from './components/HelloReact';
 
+// ReactDOM.render(
+//   <h1>
+//     Hello, world!
+//   </h1>,
+//   document.getElementById('root'),
+// );
 ReactDOM.render(
-  <h1>
-    Hello, world!
-  </h1>,
+  <div>
+    <HelloReact />
+    <HelloReact />
+    <HelloReact text="World" />
+    <HelloReact text="Bai" />
+    <HelloReact />
+  </div>,
   document.getElementById('root'),
 );

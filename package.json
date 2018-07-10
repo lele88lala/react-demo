@@ -36,8 +36,10 @@
   "dependencies": {
     "@babel/core": "^7.0.0-beta.52",
     "@babel/preset-env": "^7.0.0-beta.52",
+    "@types/prop-types": "^15.5.3",
     "babel-loader": "^8.0.0-beta.4",
     "lodash": "^4.17.10",
+    "prop-types": "^15.6.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1"
   }
